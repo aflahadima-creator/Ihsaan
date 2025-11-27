@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selamat Ulang Tahun Ihsan</title>
+<style>
+:root{
+  --sea:#0b77a5;
+  --light:#e6f7ff;
+  --glass: rgba(255,255,255,0.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family: Inter, Arial, sans-serif; background:var(--sea); color:#fff; overflow-x:hidden; scroll-behavior:smooth;
+}
+.container{
+  width:100%;
+}
+section{
+  width:100%; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:4rem 1.25rem; opacity:0; transform:translateY(40px); transition:opacity 900ms cubic-bezier(.2,.9,.3,1), transform 900ms cubic-bezier(.2,.9,.3,1);
+}
+section.show{opacity:1; transform:none}
+.header h1{font-size:clamp(28px,5vw,56px); margin:0 0 0.5rem 0; line-height:1.05}
+.header p{margin:0; opacity:0.9}
+.slide-title{font-size:clamp(20px,3vw,32px); margin-bottom:1rem}
+.frame{
+  width:320px; max-width:86vw; border-radius:16px; padding:12px; border:3px solid rgba(255,255,255,0.18); background:var(--glass); box-shadow:0 8px 30px rgba(3,22,34,0.35); transform:translateY(0); transition:transform 400ms ease;
+}
+.frame:hover{transform:translateY(-6px)}
+.photo{
+  display:block; width:100%; height:220px; object-fit:cover; border-radius:10px; opacity:0; transform:scale(0.96) translateY(12px); transition:opacity 1000ms ease, transform 1000ms ease; background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.06));
+}
+.photo.show{opacity:1; transform:none}
+.footer{font-size:clamp(18px,2.5vw,28px);}
+.topnote{position:fixed; left:16px; right:16px; top:16px; display:flex; justify-content:center; pointer-events:none}
+.topnote .pill{pointer-events:auto; background:rgba(255,255,255,0.06); padding:10px 16px; border-radius:999px; backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.06)}
+/* small devices spacing */
+@media(min-width:900px){
+  .frame{width:500px; height:auto}
+  .photo{height:320px}
+}
+</style>
+</head>
+<body>
+<div class="topnote"><div class="pill">Selamat Ulang Tahun, Ihsan 🎉</div></div>
+<main class="container">
+  <section class="header">
+    <h1>Selamat Ulang Tahun, Ihsan</h1>
+    <p>Selamat merayakan hari spesialmu. Gulir ke bawah untuk melihat kenangan.</p>
+  </section>
+
+  <section>
+    <div class="slide-title">Semoga sehat selalu yaa yesaa</div>
+    <div class="frame">
+      <img class="photo" id="img1" src="IMG-20251127-WA0071.jpg" alt="Foto Kenangan 1">
+    </div>
+  </section>
+
+  <section>
+    <div class="slide-title">Btw kamuu lucuu banget gemesh~</div>
+    <div class="frame">
+      <img class="photo" id="img2" src="IMG-20251127-WA0072.jpg" alt="Foto Kenangan 2">
+    </div>
+  </section>
+
+  <section>
+    <div class="slide-title">Semoga kita bisa ketemu langsung (^=^)</div>
+    <div class="frame">
+      <img class="photo" id="img3" src="IMG-20251127-WA0092.jpg" alt="Foto Kenangan 3">
+    </div>
+  </section>
+
+  <section>
+    <div class="footer">Semoga cita cita kamuu tercapai,aamiin~,makasih yesaa~</div>
+  </section>
+</main>
+
+<script>
+// Smooth reveal using Intersection Observer
+(function(){
+  const ioOptions = { threshold: 0.25 };
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  }, ioOptions);
+
+  // observe sections and images separately for stagger
+  document.querySelectorAll('section').forEach(sec => io.observe(sec));
+
+  // for photos, add small delay when they appear to create sequence
+  const imgObserver = new IntersectionObserver((entries)=>{
+    entries.forEach((entry,i)=>{
+      if(entry.isIntersecting){
+        // stagger appearance
+        setTimeout(()=> entry.target.classList.add('show'), 180 * (i+1));
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.photo').forEach(img => imgObserver.observe(img));
+})();
+</script>
+</body>
+</html>
